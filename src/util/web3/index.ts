@@ -1,4 +1,5 @@
 import { BigNumberish, BigNumber } from "ethers";
+import { onCooldown, resetCooldown } from "../timer/index";
 import providers from "./providers";
 
 export const listenToBalanceUpdates = (
@@ -8,11 +9,16 @@ export const listenToBalanceUpdates = (
   callback: (address: string, balance: BigNumber) => void
 ) => {
   const provider = providers[chainId];
+
   const cb = async () => {
+    if(onCooldown(address)){
+      return;
+    }
     const balance = await provider.getBalance(address);
 
     if(balance.lte(minBalance)) {
       callback(address, balance);
+      resetCooldown(address);
     }
   };
 
