@@ -22,6 +22,8 @@ export const listenToBalanceUpdates = (
     }
   };
 
-  cb();
-  provider.on({ address: address }, cb);
+  provider.ready.then(() => {  
+    cb();
+    provider.on({ address: address }, cb);
+  });
 };
