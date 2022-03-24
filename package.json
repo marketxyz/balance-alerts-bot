@@ -11,6 +11,7 @@
   "author": "Apoorv Singal <apoorvsingal0@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.4",
     "dotenv": "^8.2.0",
@@ -23,6 +24,7 @@
   "dependencies": {
     "@slack/web-api": "^5.15.0",
     "axios": "^0.19.2",
-    "ethers": "^5.6.1"
+    "ethers": "^5.6.1",
+    "express": "^4.17.3"
   }
 }
