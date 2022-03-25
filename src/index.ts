@@ -11,7 +11,7 @@ import { listenToBalanceUpdates } from './util/web3';
 import { log } from "./util/logger";
 
 function prettify(num: BigNumber, decimals: number): string {
-  return String(num.div(BigNumber.from(10).pow(decimals-5)).toNumber()/(10**5));
+  return String(num.div(BigNumber.from(10).pow(decimals-4)).toNumber()/(10**4));
 };
 
 async function main(): Promise<void> {
