@@ -1,4 +1,5 @@
 import { BigNumberish, BigNumber } from "ethers";
+import { log } from "../logger";
 import { onCooldown, resetCooldown } from "../timer/index";
 import providers from "./providers";
 
@@ -11,18 +12,24 @@ export const listenToBalanceUpdates = (
   const provider = providers[chainId];
 
   const cb = async () => {
+    log(`Checking balance of ${address}`);
+
     if(onCooldown(address)){
+      log(`Skipping because of cooldown.`);
       return;
     }
     const balance = await provider.getBalance(address);
 
     if(balance.lte(minBalance)) {
+      log(`Balance less than the safe minimum, sending an alert on slack and resetting the cooldown.`);
       callback(address, balance);
       resetCooldown(address);
+    } else {
+      log(`Balance above safe minimum.`);
     }
   };
 
-  provider.ready.then(() => {  
+  provider.ready.then(() => {
     cb();
     provider.on({ address: address }, cb);
   });
