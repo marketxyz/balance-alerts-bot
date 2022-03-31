@@ -12,7 +12,7 @@ export const listenToBalanceUpdates = (
   const provider = providers[chainId];
 
   const cb = async () => {
-    log(`Checking balance of ${address}`);
+    log(`Checking balance of ${address} on chain ${chainId}`);
 
     if(onCooldown(address)){
       log(`Skipping because of cooldown.`);
@@ -30,7 +30,9 @@ export const listenToBalanceUpdates = (
   };
 
   provider.ready.then(() => {
+    console.log(`Provider for chain ${chainId} ready.`);
     cb();
-    provider.on({ address: address }, cb);
+    // provider.on({ address: address }, cb);
+    setInterval(cb, 1000*60*20);
   });
 };
