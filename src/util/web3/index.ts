@@ -20,6 +20,9 @@ export const listenToBalanceUpdates = (
     }
     const balance = await provider.getBalance(address);
 
+    console.log(`Balance: ${balance.toString()}`);
+    console.log(`Min balance: ${minBalance.toString()}`);
+
     if(balance.lte(minBalance)) {
       log(`Balance less than the safe minimum, sending an alert on slack and resetting the cooldown.`);
       callback(address, balance);
