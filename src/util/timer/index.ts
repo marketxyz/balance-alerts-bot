@@ -5,5 +5,5 @@ export const onCooldown = (key: string): boolean => {
 };
 
 export const resetCooldown = (key: string) => {
-  cooldowns[key] = Date.now() + 1000*60*60*2;
+  cooldowns[key] = Date.now() + 1000*60*60*12;
 };
